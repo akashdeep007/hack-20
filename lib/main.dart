@@ -13,6 +13,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'The Robin Hood Army',
       theme: ThemeData(
+        buttonTheme: ButtonThemeData(
+          height: 45,
+          minWidth: 110,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(29)
+          )
+        ),
+        textTheme: TextTheme(
+          headline1: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+        ),
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

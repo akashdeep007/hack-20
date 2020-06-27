@@ -24,7 +24,9 @@ class LandingPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    RaisedButton(onPressed: (){}, child: Text("Login"),),
+                    RaisedButton(onPressed: (){
+
+                    }, child: Text("Login"),),
                     RaisedButton(onPressed: (){}, child: Text("Register"),),
 
                   ],

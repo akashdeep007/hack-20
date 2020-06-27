@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'The Robin Hood Army',
       theme: ThemeData(
         buttonTheme: ButtonThemeData(
+          textTheme: ButtonTextTheme.primary,
           height: 45,
           minWidth: 110,
           shape: RoundedRectangleBorder(
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
           )
         ),
         textTheme: TextTheme(
-          headline1: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+          headline1: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, letterSpacing: 3),
+          button: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         ),
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,

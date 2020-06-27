@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "601964052651",
+    "firebase_url": "https://the-robin-hood.firebaseio.com",
+    "project_id": "the-robin-hood",
+    "storage_bucket": "the-robin-hood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601964052651:android:cd56334e67c5ed229277ee",
+        "android_client_info": {
+          "package_name": "com.radiumtech.the_robin_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601964052651-7uulo1oe31cn9ee7u44srtu3460l9o7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJVf_rl4vRkvy_Shi7eCw6Q1Ojj_ecvGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601964052651-7uulo1oe31cn9ee7u44srtu3460l9o7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

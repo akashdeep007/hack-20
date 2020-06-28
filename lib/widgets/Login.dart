@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                         setState(() => isLoading = true);
                         await _auth.signInWithEmailAndPassword(_email, _password);
                         setState(() => isLoading = false);
-                      };
+                      }
                     },
                     child: Text("Sign In"),
                     elevation: 3,

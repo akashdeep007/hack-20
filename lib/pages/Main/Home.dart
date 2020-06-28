@@ -1,55 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:the_robin_app/pages/Main/Contact.dart';
-import 'package:the_robin_app/pages/Main/HomePage.dart';
-import 'package:the_robin_app/pages/Main/Profile.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  int _selectedPage = 1;
-  final List<Widget> pages = [
-    ContactPage(),
-    HomePage(),
-    Profile()
-  ];
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedPage,
-        onTap: (page){
-          setState(() {
-            _selectedPage = page;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            title: Text("Contact"),
-            icon: Icon(Icons.question_answer)
-          ),
-          BottomNavigationBarItem(
-              title: Text("Home"),
-              icon: Icon(Icons.home)
-          ),
-          BottomNavigationBarItem(
-              title: Text("Profile"),
-              icon: Icon(Icons.person)
-          )
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          CustomPaint(painter: BackdropDesign(),child: Container(),),
         ],
-      ),
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
-        child: pages[_selectedPage],
-        transitionBuilder: (child, animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
+      )
     );
   }
+}
+
+
+class BackdropDesign extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width - 60, 0);
+    canvas.drawCircle(center, 210, Paint()..color = Colors.green[500].withOpacity(.4));
+    canvas.drawCircle(center.translate(-size.width/1.2, size.width*1.2), 150, Paint()..color = Colors.green.withOpacity(.2));
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

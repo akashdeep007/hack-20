@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class topDesign extends CustomPainter{
+class TopDesign extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width - 40, 0);

@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
             child: Container(
               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Text(title, textAlign: TextAlign.center,),
-            )),
+        )),
       );
     }
     double maxContWidth = 0;

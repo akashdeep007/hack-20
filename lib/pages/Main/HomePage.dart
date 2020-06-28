@@ -22,11 +22,7 @@ class _HomePageState extends State<HomePage> {
       Map<String, String> events = {
         "event": event,
         "location": location,
-        "date": date.toString()+
-
-
-
-      
+        "date": date.toString()
       };
 
       documentReference.setData(events).whenComplete(() {

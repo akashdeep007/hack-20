@@ -31,24 +31,20 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
           child : Stack(
             children: <Widget>[
               CustomPaint(
-                painter: topDesign(),
+                painter: TopDesign(),
                 child: Container(
                   height: 100,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 300),
-                  switchInCurve: Curves.easeIn,
-                  switchOutCurve: Curves.easeOut,
-                  transitionBuilder: (child, animation) => ScaleTransition(scale: animation, alignment: FractionalOffset.center, child: child,),
-                  child: _isSignup ? Signup(changeForm: _changeForm) : Login(changeForm: _changeForm,),
-                ),
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                switchInCurve: Curves.easeIn,
+                switchOutCurve: Curves.easeOut,
+                transitionBuilder: (child, animation) => ScaleTransition(scale: animation, alignment: FractionalOffset.center, child: child,),
+                child: _isSignup ? Signup(changeForm: _changeForm) : Login(changeForm: _changeForm,),
               ),
             ],
           )

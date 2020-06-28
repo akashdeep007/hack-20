@@ -28,6 +28,7 @@ dependencies:
   provider:
   flutter_screenutil: ^2.1.0
   validators:
+  google_map_location_picker: ^3.3.3
 
 dev_dependencies:
   flutter_test:

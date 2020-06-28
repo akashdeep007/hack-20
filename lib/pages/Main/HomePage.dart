@@ -96,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(8)),
                           child: ListTile(
                             title: Text(documentSnapshot["event"]),
+                            subtitle: Text(documentSnapshot["location"]),
                             trailing: IconButton(
                                 icon: Icon(
                                   Icons.delete,

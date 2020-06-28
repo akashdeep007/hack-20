@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:the_robin_app/models/User.dart';
 
@@ -11,8 +9,10 @@ class DatabaseService {
 
   Stream<List<User>> get users =>
       userCollection.snapshots().map(_userListFromSnapshot);
-  Stream<User> get user =>
-      userCollection.document(uid).snapshots().map(_userFromSnapshot);
+  Stream<User> get user {
+    return userCollection.document(uid).snapshots().map(_userFromSnapshot);
+  }
+
 
   Future<void> updateUser(String name, String email, String phone) async {
     await userCollection.document(uid).setData({
@@ -32,6 +32,7 @@ class DatabaseService {
   }
 
   User _userFromSnapshot(DocumentSnapshot snapshot) {
+    print(snapshot.documentID);
     return User(
       name: snapshot.data['name'],
       email: snapshot.data['email'],

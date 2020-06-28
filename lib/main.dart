@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           buttonTheme: ButtonThemeData(
             textTheme: ButtonTextTheme.primary,
-            height: 45,
-            minWidth: 140,
+            height: 40,
+            minWidth: 120,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(29),
             )

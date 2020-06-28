@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:the_robin_app/blocs/AuthService.dart';
+import 'package:the_robin_app/pages/Main/Contact.dart';
+import 'package:the_robin_app/pages/Main/HomePage.dart';
+import 'package:the_robin_app/pages/Main/Profile.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,19 +9,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedPage = 0;
+  int _selectedPage = 1;
+  final List<Widget> pages = [
+    ContactPage(),
+    HomePage(),
+    Profile()
+  ];
   @override
   Widget build(BuildContext context) {
-    final AuthService _auth = AuthService();
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          FlatButton(onPressed: _auth.signOut,color: Colors.white54,child: Text("Log Out", style: TextStyle(color: Colors.white),),),
-        ],
-      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,
-        onTap: (value) => setState(() => _selectedPage = value),
+        onTap: (page){
+          setState(() {
+            _selectedPage = page;
+          });
+        },
         items: [
           BottomNavigationBarItem(
             title: Text("Contact"),
@@ -34,6 +39,16 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.person)
           )
         ],
+      ),
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        child: pages[_selectedPage],
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
       ),
     );
   }

@@ -43,7 +43,9 @@ class _AuthFormState extends State<AuthForm> {
               Container(
                 margin: EdgeInsets.all(10),
                 child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 200),
+                  duration: Duration(milliseconds: 300),
+                  switchInCurve: Curves.easeIn,
+                  switchOutCurve: Curves.easeOut,
                   transitionBuilder: (child, animation) => ScaleTransition(scale: animation, alignment: FractionalOffset.center, child: child,),
                   child: _isSignup ? Signup(changeForm: _changeForm) : Login(changeForm: _changeForm,),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,13 +12,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     String event = "";
     String location = '';
+    DateTime date;
 
     createevents() {
       DocumentReference documentReference =
           Firestore.instance.collection("Event").document(event);
 
       //Map
-      Map<String, String> events = {"event": event, "location": location};
+      Map<String, String> events = {
+        "event": event,
+        "location": location,
+        "date": date.toString()
+      };
 
       documentReference.setData(events).whenComplete(() {
         print("$event created");
@@ -46,15 +52,42 @@ class _HomePageState extends State<HomePage> {
                   content: Column(
                     children: <Widget>[
                       TextField(
+                        decoration: InputDecoration(
+                          labelText: "Event Name",
+                        ),
                         onChanged: (String value) {
                           event = value;
                         },
                       ),
                       TextField(
+                        decoration: InputDecoration(
+                          labelText: "Location of the Event",
+                        ),
                         onChanged: (String value) {
                           location = value;
                         },
                       ),
+                      FlatButton(
+                          onPressed: () {
+                            DatePicker.showDatePicker(
+                              context,
+                              showTitleActions: true,
+                              minTime: DateTime.now(),
+                              maxTime: DateTime(2022, 12, 12),
+                              onChanged: (date) {
+                                print('change $date');
+                              },
+                              onConfirm: (date) {
+                                print(date.toString());
+                                date = date;
+                              },
+                              currentTime: DateTime.now(),
+                            );
+                          },
+                          child: Text(
+                            ' Date time picker',
+                            style: TextStyle(color: Colors.blue),
+                          ))
                     ],
                   ),
                   actions: <Widget>[

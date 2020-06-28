@@ -1,5 +1,6 @@
-class User{
+class User {
   final name;
   final email;
-  User({this.name, this.email});
+  final phone;
+  User({this.name, this.email, this.phone});
 }

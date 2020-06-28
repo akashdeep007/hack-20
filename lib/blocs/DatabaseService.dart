@@ -1,20 +1,41 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:the_robin_app/models/User.dart';
 
 class DatabaseService {
   final uid;
   DatabaseService({this.uid});
-  final CollectionReference userCollection = Firestore.instance.collection('users');
+  final CollectionReference userCollection =
+      Firestore.instance.collection('users');
 
-  Stream<List<User>> get users => return userCollection.snapshots().map(_userListFromSnapshot);
+  Stream<List<User>> get users =>
+      userCollection.snapshots().map(_userListFromSnapshot);
+  Stream<User> get user =>
+      userCollection.document(uid).snapshots().map(_userFromSnapshot);
 
+  Future<void> updateUser(String name, String email, String phone) async {
+    await userCollection.document(uid).setData({
+      'name' : name,
+      'email' : email,
+      'phone' : phone
+    });
+  }
 
-  List<UserData> _userListFromSnapshot(QuerySnapshot snapshot) {
+  List<User> _userListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return UserData(
+      return User(
           name: doc.data['name'] ?? "",
           email: doc.data['email'] ?? "",
+          phone: doc.data['phone'] ?? "");
     }).toList();
   }
 
-
+  User _userFromSnapshot(DocumentSnapshot snapshot) {
+    return User(
+      name: snapshot.data['name'],
+      email: snapshot.data['email'],
+      phone: snapshot.data['phone'],
+    );
+  }
 }

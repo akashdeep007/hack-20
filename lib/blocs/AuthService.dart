@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:the_robin_app/models/User.dart';
 import 'package:the_robin_app/blocs/DatabaseService.dart';
-
-
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,36 +29,31 @@ class AuthService {
       FirebaseUser user = result.user;
 
       return (_userFromFirebaseUser(user));
-
-
-
     } catch (e) {
       PlatformException error = e;
-      return(error.message.toString());
-
+      return (error.message.toString());
     }
   }
 
-  Future registerWithEmailAndPassword(String name, String email,
-      String password) async {
+  Future registerWithEmailAndPassword(
+      String name, String email, String phone, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
       await DatabaseService(uid: user.uid)
-          .updateUserData(name, email);
+          .updateUser(name, email, phone);
       return (_userFromFirebaseUser(user));
     } catch (e) {
       PlatformException error = e;
-      return(error.message.toString());
+      return (error.message.toString());
     }
   }
 
-
   Future<void> resetPassword(String email) async {
-    try{
+    try {
       await _auth.sendPasswordResetEmail(email: email);
-    } catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }

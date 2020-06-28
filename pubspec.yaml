@@ -27,6 +27,7 @@ dependencies:
   cloud_firestore: ^0.13.7
   provider:
   flutter_screenutil: ^2.1.0
+  validators:
 
 dev_dependencies:
   flutter_test:

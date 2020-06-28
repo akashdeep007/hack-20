@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_robin_app/pages/AuthForm.dart';
 import 'package:the_robin_app/pages/Home.dart';
-import 'package:the_robin_app/pages/LandingPage.dart';
-import 'package:the_robin_app/widgets/Login.dart';
-import 'package:the_robin_app/widgets/Signup.dart';
 
 class Wrapper extends StatelessWidget {
   @override

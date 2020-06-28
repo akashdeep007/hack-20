@@ -34,7 +34,7 @@ class _AuthFormState extends State<AuthForm> {
           child : Stack(
             children: <Widget>[
               CustomPaint(
-                painter: topDesign(),
+                painter: TopDesign(),
                 child: Container(
                   height: 100,
                 ),

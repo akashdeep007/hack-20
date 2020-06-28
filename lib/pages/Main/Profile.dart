@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_robin_app/blocs/AuthService.dart';
 import 'package:the_robin_app/models/User.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -11,12 +10,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  PickedFile _imageFile;
-  dynamic _pickImageError;
-
-  final ImagePicker _picker = ImagePicker();
-
-
   @override
   Widget build(BuildContext context) {
 

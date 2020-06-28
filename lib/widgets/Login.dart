@@ -48,6 +48,7 @@ class _LoginState extends State<Login> {
     return Stack(
       children: <Widget>[
         Container(
+          margin: EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -126,7 +127,7 @@ class _LoginState extends State<Login> {
             ],
           ),
         ),
-        isLoading ? Center(child: CircularProgressIndicator(),) : Container(),
+        isLoading ? SizedBox.expand(child: Container(color: Colors.black26,child: Center(child: CircularProgressIndicator(),))) : Container(),
       ],
     );
   }

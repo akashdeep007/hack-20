@@ -1,5 +1,3 @@
-import 'package:the_robin_app/models/User.dart';
-
 class Event{
   final String eventID;
   final String donorName;
@@ -7,7 +5,7 @@ class Event{
   final String type;
   final String description;
   final String location;
-  final String date;
+  final DateTime date;
   final String contact;
   final String addedby;
   final volunteers;

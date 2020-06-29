@@ -19,6 +19,7 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
+        color: Colors.greenAccent[100].withOpacity(.2),
         height: 60,
         child: ClipRRect(
           borderRadius: BorderRadius.only(
@@ -54,7 +55,7 @@ class _MainState extends State<Main> {
       ),
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 100),
-        child: pages[_selectedPage],
+        child: Container(color : Colors.greenAccent[100].withOpacity(.2),child: pages[_selectedPage]),
       ),
     );
   }

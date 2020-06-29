@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_robin_app/widgets/CustomCircles.dart';
-import 'package:the_robin_app/widgets/Login.dart';
-import 'package:the_robin_app/widgets/Signup.dart';
+import 'package:the_robin_app/widgets/Forms/Login.dart';
+import 'package:the_robin_app/widgets/Forms/Signup.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isSignup;

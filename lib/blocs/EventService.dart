@@ -24,7 +24,8 @@ class EventService {
   }
 
 
-  Future<void> updateEvent(String donorName, String title, String type, String description, String location, String date, String contact) async {
+  Future<void> updateEvent(String donorName, String title, String type, String description, String location, DateTime date, String contact, String addedby) async {
+    print("here");
     await eventCollection.add({
       'donorName' : donorName,
       'title' : title,
@@ -33,7 +34,7 @@ class EventService {
       'type' : type,
       'location' : location,
       'date' : date,
-      'addedby' : uid,
+      'addedby' : { 'uid' : uid.toString(), 'name' : addedby},
       'volunteers' : []
     });
   }
@@ -47,7 +48,7 @@ class EventService {
           description: doc.data['description'] ?? '',
           location :doc.data['location'] ?? '',
           contact :doc.data['contact'] ?? '',
-          date:doc.data['date'] ?? '',
+          date: doc.data['date'].toDate() ?? '',
           type : doc.data['type'] ?? '',
           addedby: doc.data['addedby'] ?? '',
           volunteers: (doc.data['volunteers'])
@@ -63,7 +64,7 @@ class EventService {
       description: doc.data['description'] ?? '',
       location :doc.data['location'] ?? '',
       contact :doc.data['contact'] ?? '',
-      date:doc.data['date'] ?? '',
+      date:doc.data['date'].toDate() ?? '',
       type : doc.data['type'] ?? '',
       addedby: doc.data['type'] ?? '',
       volunteers: doc.data['volunteers']

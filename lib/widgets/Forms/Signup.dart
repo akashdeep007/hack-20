@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_robin_app/blocs/AuthService.dart';
-import 'package:the_robin_app/widgets/InputField.dart';
+import 'package:the_robin_app/widgets/Forms/InputField.dart';
 import 'package:validators/validators.dart' as validators;
 
 class Signup extends StatefulWidget {

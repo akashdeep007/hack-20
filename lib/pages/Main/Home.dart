@@ -1,9 +1,9 @@
 import 'dart:ui';
-
-import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_robin_app/models/Event.dart';
+import 'package:the_robin_app/models/User.dart';
 import 'package:the_robin_app/widgets/CustomSwitcher.dart';
 import 'package:the_robin_app/widgets/Forms/EventRegister.dart';
 import 'package:the_robin_app/widgets/HomeBackdrop.dart';
@@ -16,31 +16,28 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool _liveEventPage = true;
 
-  void _pageChangeHandler() => setState(() => _liveEventPage = !_liveEventPage);
+  void _pageChangeHandler(bool page) => setState(() => _liveEventPage = page);
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
+      resizeToAvoidBottomPadding: true,
       floatingActionButton: FloatingActionButton(
+        heroTag: "event_register",
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Scaffold(
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.miniStartTop,
-                    floatingActionButton: Container(
-                        margin: EdgeInsets.only(top: 108, left: 10),
-                        child: FloatingActionButton(
-                          child: Icon(Icons.arrow_back_ios),
-                          onPressed: () => Navigator.of(context).pop(),
-                        )),
-                    body: Stack(children: <Widget>[
-                      CustomPaint(
-                        painter: HomeBackdrop(),
-                        child: Container(),
-                      ),
-                      Container(color: Colors.greenAccent[100].withOpacity(.2),),
-                      EventRegister()
-                    ]),
-                  )));
+              builder: (context) => SafeArea(
+                child: Scaffold(
+                      body: Stack(children: <Widget>[
+                        CustomPaint(
+                          painter: HomeBackdrop(),
+                          child: Container(),
+                        ),
+                        Container(color: Colors.greenAccent[100].withOpacity(.2),),
+                        EventRegister(user: user,)
+                      ]),
+                    ),
+              )));
         },
         child: Icon(Icons.add),
       ),
@@ -54,29 +51,41 @@ class _HomeState extends State<Home> {
             ),
           ),
           LayoutBuilder(
-            builder: (context, constraints) => SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Column(children: <Widget>[
-                  CustomSwitcher(
+            builder: (context, constraints) => ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Stack(children: <Widget>[
+                Consumer<List<Event>>(builder: (context, value, _) {
+                  return value != null
+                      ? SingleChildScrollView(
+                        child: Container(
+
+                            margin: EdgeInsets.only(left: 10, right: 10, top: 100),
+                            child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: value.length,
+                                itemBuilder: (context, index) {
+//                                  print(value[index].addedby);
+//                                  print("Curr " + user.id.toString());
+                                  if(!_liveEventPage){
+                                    if(value[index].addedby != user.id.toString()){
+                                      return Container();
+                                    }
+                                  }
+                                  return EventTile(data: value[index],);
+                                }),
+                          ),
+                      )
+                      : Container();
+                }),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: CustomSwitcher(
                     liveEventPage: _liveEventPage,
                     pageChangeHandler: _pageChangeHandler,
                   ),
-                  Consumer<List<Event>>(builder: (context, value, _) {
-                    return value != null
-                        ? Container(
-                            margin: EdgeInsets.only(left: 10, right: 10),
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: value.length,
-                                itemBuilder: (context, index) => EventTile(
-                                      data: value[index],
-                                    )),
-                          )
-                        : Container();
-                  }),
-                ]),
-              ),
+                ),
+              ]),
             ),
           ),
         ],

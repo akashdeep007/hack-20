@@ -6,17 +6,15 @@ class EventService {
   EventService({this.uid});
   final CollectionReference eventCollection =
   Firestore.instance.collection('events');
-  final CollectionReference userCollection =
-  Firestore.instance.collection('users');
 
   Stream<List<Event>> get events =>
-      eventCollection.snapshots().map(_eventListFromSnapshot);
+      eventCollection.orderBy('date').snapshots().map(_eventListFromSnapshot);
   Stream<Event> get event {
-    return eventCollection.document(uid).snapshots().map(_eventFromSnapshot);
+    return eventCollection.document().snapshots().map(_eventFromSnapshot);
   }
 
   Future<void> addVolunteer(String eventId, String userId, String name) async{
-      await eventCollection.document(eventId).setData({'volunteers' : [{'name' : name, 'id' : userId}],}, merge: true);
+      await eventCollection.document(eventId).setData({'volunteers' : ['users/${uid.toString()}'],}, merge: true);
   }
 
   Future<void> deleteEvent(String eventId) async {
@@ -24,8 +22,9 @@ class EventService {
   }
 
 
-  Future<void> updateEvent(String donorName, String title, String type, String description, String location, DateTime date, String contact, String addedby) async {
-    print("here");
+  Future<void> updateEvent(String donorName, String title, String type, String description, String location, DateTime date, String contact) async {
+    print(uid.runtimeType);
+    print(uid);
     await eventCollection.add({
       'donorName' : donorName,
       'title' : title,
@@ -34,7 +33,7 @@ class EventService {
       'type' : type,
       'location' : location,
       'date' : date,
-      'addedby' : { 'uid' : uid.toString(), 'name' : addedby},
+      'addedby' : uid,
       'volunteers' : []
     });
   }

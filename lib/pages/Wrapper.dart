@@ -13,7 +13,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
-//    return Scaffold(body: EventRegister());
+//    return Scaffold(body: EventRegister(user: User(),));
     return user == null ?  AuthForm(false) :
     MultiProvider(
          providers: [

@@ -10,11 +10,7 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   int _selectedPage = 1;
-  final List<Widget> pages = [
-    Contact(),
-    Home(),
-    Profile()
-  ];
+  final List<Widget> pages = [Contact(), Home(), Profile()];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,31 +30,27 @@ class _MainState extends State<Main> {
               selectedItemColor: Colors.white,
               showUnselectedLabels: false,
               currentIndex: _selectedPage,
-              onTap: (page){
+              onTap: (page) {
                 setState(() {
                   _selectedPage = page;
                 });
               },
               items: [
                 BottomNavigationBarItem(
-                  title: Text("Contact"),
-                  icon: Icon(Icons.question_answer)
-                ),
+                    title: Text("Contact"), icon: Icon(Icons.question_answer)),
                 BottomNavigationBarItem(
-                    title: Text("Home"),
-                    icon: Icon(Icons.home)
-                ),
+                    title: Text("Home"), icon: Icon(Icons.home)),
                 BottomNavigationBarItem(
-                    title: Text("Profile"),
-                    icon: Icon(Icons.person)
-                )
+                    title: Text("Profile"), icon: Icon(Icons.person))
               ],
             ),
           ),
         ),
         body: AnimatedSwitcher(
           duration: Duration(milliseconds: 100),
-          child: Container(color : Colors.greenAccent[100].withOpacity(.2),child: pages[_selectedPage]),
+          child: Container(
+              color: Colors.greenAccent[100].withOpacity(.2),
+              child: pages[_selectedPage]),
         ),
       ),
     );

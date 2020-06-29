@@ -7,6 +7,9 @@ class CustomInputField extends StatelessWidget {
   final bool error;
   final bool isObsecure;
   final bool date;
+  final bool expands;
+  final int maxLines;
+  final int minLines;
 
   const CustomInputField(
       {Key key,
@@ -15,7 +18,8 @@ class CustomInputField extends StatelessWidget {
       this.inputHandler,
       this.error,
       this.isObsecure = false,
-      this.date = false})
+        this.expands = false,
+      this.date = false, this.maxLines = null, this.minLines =null})
       : super(key: key);
 
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class CustomInputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(29),
           elevation: 6,
           child: TextFormField(
+            expands: expands,
             obscureText: isObsecure,
             onChanged: (value) {
               inputHandler(title, value);

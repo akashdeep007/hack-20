@@ -7,14 +7,11 @@ class EventService {
   final CollectionReference eventCollection =
   Firestore.instance.collection('events');
 
-  Stream<List<Event>> get events =>
-      eventCollection.orderBy('date').snapshots().map(_eventListFromSnapshot);
-  Stream<Event> get event {
-    return eventCollection.document().snapshots().map(_eventFromSnapshot);
-  }
+  Stream<List<Event>> get events => eventCollection.orderBy('date', descending: true).snapshots().map(_eventListFromSnapshot);
 
-  Future<void> addVolunteer(String eventId, String userId, String name) async{
-      await eventCollection.document(eventId).setData({'volunteers' : ['users/${uid.toString()}'],}, merge: true);
+  Future<void> addVolunteer(String eventId, String userId) async{
+    print(userId);
+      await eventCollection.document(eventId).setData({'volunteers' : [Firestore.instance.collection('users').document(userId)],}, merge: true);
   }
 
   Future<void> deleteEvent(String eventId) async {

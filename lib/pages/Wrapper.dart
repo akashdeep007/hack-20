@@ -7,6 +7,7 @@ import 'package:the_robin_app/models/Event.dart';
 import 'package:the_robin_app/models/User.dart';
 import 'package:the_robin_app/pages/AuthForm.dart';
 import 'package:the_robin_app/pages/Main/Main.dart';
+import 'package:the_robin_app/pages/onboarding_screen.dart';
 import 'package:the_robin_app/widgets/Forms/EventRegister.dart';
 
 class Wrapper extends StatelessWidget {
@@ -14,7 +15,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
 //    return Scaffold(body: EventRegister(user: User(),));
-    return user == null ?  AuthForm(false) :
+    return user == null ?  AuthForm(true) :
     MultiProvider(
          providers: [
            StreamProvider<User>.value(value: DatabaseService(uid: user.uid).user),

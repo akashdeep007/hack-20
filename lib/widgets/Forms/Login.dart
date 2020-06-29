@@ -44,7 +44,6 @@ class _LoginState extends State<Login> {
     final AuthService _auth = AuthService();
     final width = MediaQuery.of(context).size.width;
 //    final height = MediaQuery.of(context).size.height;
-    print(isLoading);
     return Stack(
       children: <Widget>[
         Container(
@@ -89,7 +88,6 @@ class _LoginState extends State<Login> {
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () async {
-                      print(_email + " " + _password);
                       if(!validators.isEmail(_email.trim())) setState(() => _emailError = true);
                       if(_password.trim().length < 8) setState(() => _passwordError = true);
                       if(!_emailError && !_passwordError) {

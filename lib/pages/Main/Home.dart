@@ -1,7 +1,8 @@
 import 'dart:ui';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_robin_app/blocs/EventService.dart';
 import 'package:the_robin_app/models/Event.dart';
 import 'package:the_robin_app/models/User.dart';
 import 'package:the_robin_app/widgets/CustomSwitcher.dart';
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       floatingActionButton: FloatingActionButton(
@@ -27,17 +29,19 @@ class _HomeState extends State<Home> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => SafeArea(
-                child: Scaffold(
+                    child: Scaffold(
                       body: Stack(children: <Widget>[
                         CustomPaint(
                           painter: HomeBackdrop(),
                           child: Container(),
                         ),
-                        Container(color: Colors.greenAccent[100].withOpacity(.2),),
+                        Container(
+                          color: Colors.greenAccent[100].withOpacity(.2),
+                        ),
                         EventRegister(user: user)
                       ]),
                     ),
-              )));
+                  )));
         },
         child: Icon(Icons.add),
       ),
@@ -57,26 +61,31 @@ class _HomeState extends State<Home> {
                 Consumer<List<Event>>(builder: (context, value, _) {
                   return value != null
                       ? SingleChildScrollView(
-                        child: Container(
-
-                            margin: EdgeInsets.only(left: 10, right: 10, top: 100),
+                          child: Container(
+                            margin:
+                                EdgeInsets.only(left: 10, right: 10, top: 100),
                             child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                                physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: value.length,
                                 itemBuilder: (context, index) {
 //                                  print(value[index].addedby);
 //                                  print("Curr " + user.id.toString());
-                                  if(!_liveEventPage){
-                                    if(value[index].addedby != user.id.toString()){
+                                  if (!_liveEventPage) {
+                                    if (value[index].addedby !=
+                                        user.id.toString()) {
                                       return Container();
                                     }
                                   }
-                                  return EventTile(data: value[index],);
+                                  return EventTile(
+                                      data: value[index],
+                                      key: Key(value[index].eventID),
+                                      user: user);
                                 }),
                           ),
-                      )
+                        )
                       : Container();
+                  final EventService _eventService = EventService();
                 }),
                 Align(
                   alignment: Alignment.topCenter,
@@ -95,12 +104,13 @@ class _HomeState extends State<Home> {
 }
 
 class EventTile extends StatelessWidget {
-  EventTile({Key key, this.data}) : super(key: key);
-  final data;
+  final EventService _eventService = EventService();
+  EventTile({Key key, this.data, this.user}) : super(key: key);
+  final data, user;
   @override
   Widget build(BuildContext context) {
     IconData _icon;
-    switch(data.type.toLowerCase()){
+    switch (data.type.toLowerCase()) {
       case 'food':
         _icon = Icons.fastfood;
         break;
@@ -113,41 +123,53 @@ class EventTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       child: Material(
-        key: key,
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
         child: ExpansionTile(
-          leading: Container(height: MediaQuery.of(context).size.height,child: Icon(_icon, color: Colors.green,)),
+          key: key,
+          leading: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Icon(
+                _icon,
+                color: Colors.green,
+              )),
           initiallyExpanded: false,
           title: Text(data.title),
-          subtitle: Text(data.date.toString()),
+          subtitle: Text(DateFormat.MMMMEEEEd().add_jm().format(data.date)),
           children: <Widget>[
-            Text(data.description, textAlign: TextAlign.left,),
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: data.volunteers.length,
-              itemBuilder: (context, userIndex) => StreamBuilder(
-                stream: data.volunteers[userIndex].snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(snapshot.data['name']),
-                    );
-                  } else
-                    return Container();
-                },
-              ),
+            Text(
+              data.description,
+              textAlign: TextAlign.left,
             ),
-            Container(
-              height: 40,
-              margin: EdgeInsets.only(top: 5, bottom: 10),
-              child: RaisedButton(
-                onPressed: (){},
-                child: Text("Volunteer"),
+            ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data.volunteers == null ? 0 : data.volunteers.length,
+                itemBuilder: (context, userIndex) {
+                  return StreamBuilder(
+                    stream: data.volunteers[userIndex].snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && !snapshot.hasError) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text((snapshot.data['name'])),
+                        );
+                      } else
+                        return Container();
+                    },
+                  );
+                }),
+            Column(children: <Widget>[
+              Container(
+                height: 40,
+                margin: EdgeInsets.only(top: 5, bottom: 10),
+                child: RaisedButton(
+                  onPressed: () => _eventService.addVolunteer(
+                      data.eventID, user.id.toString()),
+                  child: Text("Volunteer"),
+                ),
               ),
-            )
+            ])
           ],
         ),
       ),

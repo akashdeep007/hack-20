@@ -37,9 +37,9 @@ class _ProfileState extends State<Profile> {
       child: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
-          CustomPaint(painter: BackDropPaint(),child: Container(height: height / 2.5 ,alignment: Alignment.bottomCenter,child: Material(borderRadius: BorderRadius.circular(60), shadowColor: Colors.grey,elevation: 6,child: ClipOval(child : Container(height: 120, width: 120,color: Colors.green,child: Placeholder()))),),),
+          CustomPaint(painter: BackDropPaint(),child: Container(height: height / 3 ,alignment: Alignment.bottomCenter,child: Material(borderRadius: BorderRadius.circular(60), shadowColor: Colors.grey,elevation: 6,child: ClipOval(child : Container(height: 120, width: 120,color: Colors.green,child: Placeholder()))),),),
           Positioned(
-            top: height / 2.5,
+            top: height / 3,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,7 +69,7 @@ class _ProfileState extends State<Profile> {
 class BackDropPaint extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width/2, -120);
+    final center = Offset(size.width/2, -150);
     canvas.drawCircle(center, 300, Paint()..color = Colors.greenAccent);
   }
 

@@ -99,7 +99,7 @@ class _EventRegisterState extends State<EventRegister> {
       print('Uploading');
       setState(() => isLoading = true);
       await _eventService.updateEvent(_name, _title, 'food', _description,
-          _location, _date, _phone);
+          _location, _date, _phone, widget.user.id.toString());
       setState(() => isLoading = false);
     }
     Navigator.of(context).pop();

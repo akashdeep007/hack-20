@@ -22,7 +22,7 @@ class EventService {
   }
 
 
-  Future<void> updateEvent(String donorName, String title, String type, String description, String location, DateTime date, String contact) async {
+  Future<void> updateEvent(String donorName, String title, String type, String description, String location, DateTime date, String contact, String id) async {
     print(uid.runtimeType);
     print(uid);
     await eventCollection.add({
@@ -33,7 +33,7 @@ class EventService {
       'type' : type,
       'location' : location,
       'date' : date,
-      'addedby' : uid,
+      'addedby' : id,
       'volunteers' : []
     });
   }

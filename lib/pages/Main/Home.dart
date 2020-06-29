@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
                           child: Container(),
                         ),
                         Container(color: Colors.greenAccent[100].withOpacity(.2),),
-                        EventRegister(user: user,)
+                        EventRegister(user: user)
                       ]),
                     ),
               )));

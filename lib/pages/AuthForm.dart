@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_robin_app/widgets/CustomCircles.dart';
-import 'package:the_robin_app/widgets/Login.dart';
-import 'package:the_robin_app/widgets/Signup.dart';
+import 'package:the_robin_app/widgets/Forms/Login.dart';
+import 'package:the_robin_app/widgets/Forms/Signup.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isSignup;
@@ -29,25 +29,27 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          child : Stack(
-            children: <Widget>[
-              CustomPaint(
-                painter: TopDesign(),
-                child: Container(
-                  height: 100,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+            child : Stack(
+              children: <Widget>[
+                CustomPaint(
+                  painter: TopDesign(),
+                  child: Container(
+                    height: 100,
+                  ),
                 ),
-              ),
-              AnimatedSwitcher(
-                duration: Duration(milliseconds: 300),
-                switchInCurve: Curves.easeIn,
-                switchOutCurve: Curves.easeOut,
-                transitionBuilder: (child, animation) => ScaleTransition(scale: animation, alignment: FractionalOffset.center, child: child,),
-                child: _isSignup ? Signup(changeForm: _changeForm) : Login(changeForm: _changeForm,),
-              ),
-            ],
-          )
+                AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  switchInCurve: Curves.easeIn,
+                  switchOutCurve: Curves.easeOut,
+                  transitionBuilder: (child, animation) => ScaleTransition(scale: animation, alignment: FractionalOffset.center, child: child,),
+                  child: _isSignup ? Signup(changeForm: _changeForm) : Login(changeForm: _changeForm,),
+                ),
+              ],
+            )
+        ),
       ),
     );
   }

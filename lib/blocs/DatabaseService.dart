@@ -18,25 +18,29 @@ class DatabaseService {
     await userCollection.document(uid).setData({
       'name' : name,
       'email' : email,
-      'phone' : phone
+      'phone' : phone,
+      'role' : 'volunteer'
     });
   }
 
   List<User> _userListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return User(
+        id : doc.documentID,
           name: doc.data['name'] ?? "",
           email: doc.data['email'] ?? "",
-          phone: doc.data['phone'] ?? "");
+          phone: doc.data['phone'] ?? "",
+          role : doc.data['role'] ?? "");
     }).toList();
   }
 
-  User _userFromSnapshot(DocumentSnapshot snapshot) {
-    print(snapshot.documentID);
+  User _userFromSnapshot(DocumentSnapshot doc) {
     return User(
-      name: snapshot.data['name'],
-      email: snapshot.data['email'],
-      phone: snapshot.data['phone'],
+        id : doc.documentID,
+        name: doc.data['name'] ?? "",
+        email: doc.data['email'] ?? "",
+        phone: doc.data['phone'] ?? "",
+        role : doc.data['role'] ?? ""
     );
   }
 }

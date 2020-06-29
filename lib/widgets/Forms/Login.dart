@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_robin_app/blocs/AuthService.dart';
 import 'package:validators/validators.dart' as validators;
-import 'package:the_robin_app/widgets/InputField.dart';
+import 'package:the_robin_app/widgets/Forms/InputField.dart';
 
 class Login extends StatefulWidget {
   final Function changeForm;
@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                         setState(() => isLoading = true);
                         await _auth.signInWithEmailAndPassword(_email, _password);
                         setState(() => isLoading = false);
-                      };
+                      }
                     },
                     child: Text("Sign In"),
                     elevation: 3,

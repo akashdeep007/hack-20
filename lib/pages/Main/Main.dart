@@ -17,44 +17,49 @@ class _MainState extends State<Main> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Container(
-        height: 60,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(29.0),
-            topRight: Radius.circular(29.0),
-          ),
-          child: BottomNavigationBar(
-            backgroundColor: Colors.green,
-            selectedItemColor: Colors.white,
-            showUnselectedLabels: false,
-            currentIndex: _selectedPage,
-            onTap: (page){
-              setState(() {
-                _selectedPage = page;
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                title: Text("Contact"),
-                icon: Icon(Icons.question_answer)
-              ),
-              BottomNavigationBarItem(
-                  title: Text("Home"),
-                  icon: Icon(Icons.home)
-              ),
-              BottomNavigationBarItem(
-                  title: Text("Profile"),
-                  icon: Icon(Icons.person)
-              )
-            ],
+    return SafeArea(
+      left: false,
+      right: false,
+      child: Scaffold(
+        bottomNavigationBar: Container(
+          color: Colors.transparent,
+          height: 60,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.green,
+              selectedItemColor: Colors.white,
+              showUnselectedLabels: false,
+              currentIndex: _selectedPage,
+              onTap: (page){
+                setState(() {
+                  _selectedPage = page;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  title: Text("Contact"),
+                  icon: Icon(Icons.question_answer)
+                ),
+                BottomNavigationBarItem(
+                    title: Text("Home"),
+                    icon: Icon(Icons.home)
+                ),
+                BottomNavigationBarItem(
+                    title: Text("Profile"),
+                    icon: Icon(Icons.person)
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 100),
-        child: pages[_selectedPage],
+        body: AnimatedSwitcher(
+          duration: Duration(milliseconds: 100),
+          child: Container(color : Colors.greenAccent[100].withOpacity(.2),child: pages[_selectedPage]),
+        ),
       ),
     );
   }
